@@ -1,0 +1,15 @@
+# Stage 1: Download
+selenium>=4.18
+webdriver-manager>=4.0
+python-dotenv>=1.0
+requests>=2.31
+pyyaml>=6.0
+
+# Stage 2: Transcribe
+openai-whisper
+
+# Stage 3: Evaluate
+anthropic>=0.40
+
+# Stage 4: Report
+openpyxl>=3.1

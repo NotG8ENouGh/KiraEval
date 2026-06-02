@@ -1,0 +1,39 @@
+{
+  "skill_name": "submission-download",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Download applicant data from Kira Review in dry-run mode to see what's available without actually downloading anything.",
+      "expected_output": "The script runs successfully, lists available applicants with their IDs and status, but does not download any files.",
+      "assertions": [
+        "Exit code is 0",
+        "stdout contains a JSON array of applicant objects",
+        "No new folders are created in the output directory",
+        "stderr shows login success message"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Download submissions for 1 applicant from Kira Review and save to data/preparer/.",
+      "expected_output": "One applicant folder is created with written.txt and at least one video file, plus meta.json.",
+      "assertions": [
+        "Exit code is 0",
+        "Exactly one new subfolder exists in data/preparer/",
+        "The subfolder contains written.txt with non-empty content",
+        "The subfolder contains at least one .mp4 file",
+        "The subfolder contains meta.json that is valid JSON",
+        "stdout JSON shows 1 applicant downloaded"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Try to download applicants with invalid credentials.",
+      "expected_output": "Script fails gracefully with a clear login error message.",
+      "assertions": [
+        "Exit code is 1",
+        "stderr contains 'login failed' or similar error message",
+        "No files are created in the output directory"
+      ]
+    }
+  ]
+}

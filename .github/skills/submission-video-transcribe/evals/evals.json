@@ -1,0 +1,40 @@
+{
+  "skill_name": "submission-video-transcribe",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Transcribe all videos in data/preparer/ for applicants that don't have transcripts yet.",
+      "expected_output": "Transcript JSON files are created for each video file found.",
+      "files": ["evals/files/sample_applicant/oral.mp4", "evals/files/sample_applicant/logical.mp4"],
+      "assertions": [
+        "Exit code is 0",
+        "oral_transcript.json exists and contains a 'text' field with non-empty string",
+        "logical_transcript.json exists and contains a 'text' field with non-empty string",
+        "Both transcripts have 'word_count' field with value > 0",
+        "Both transcripts have 'segments' array with at least one entry",
+        "stdout JSON summary shows 1 applicant processed"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Transcribe videos in an empty directory with no .mp4 files.",
+      "expected_output": "Script handles gracefully, reports no videos found.",
+      "assertions": [
+        "Exit code is 1",
+        "stderr mentions no video files found",
+        "No transcript files are created"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Transcribe videos using the tiny model for faster processing.",
+      "expected_output": "Transcription completes with the tiny model specified.",
+      "files": ["evals/files/sample_applicant/oral.mp4"],
+      "assertions": [
+        "Exit code is 0",
+        "oral_transcript.json has 'model' field set to 'tiny'",
+        "Transcript text is non-empty"
+      ]
+    }
+  ]
+}

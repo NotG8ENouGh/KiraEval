@@ -1,0 +1,15 @@
+.env
+data/
+reports/
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+
+# Data directories (contents are gitignored, structure preserved via .gitkeep)
+data/preparer/*
+!data/preparer/.gitkeep
+data/assessor/*
+!data/assessor/.gitkeep
+data/analyst/*
+!data/analyst/.gitkeep

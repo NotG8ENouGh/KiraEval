@@ -1,0 +1,42 @@
+{
+  "skill_name": "submission-package",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Package all applicant data in data/preparer/ into submission.json files.",
+      "expected_output": "submission.json is created for each applicant with all sections populated.",
+      "files": [
+        "evals/files/sample_applicant/written.txt",
+        "evals/files/sample_applicant/meta.json",
+        "evals/files/sample_applicant/oral_transcript.json",
+        "evals/files/sample_applicant/logical_transcript.json"
+      ],
+      "assertions": [
+        "Exit code is 0",
+        "submission.json exists and is valid JSON",
+        "JSON has 'q1_written' key with 'response' and 'word_count'",
+        "JSON has 'q2_oral' key with 'response', 'word_count', and 'transcript_segments'",
+        "JSON has 'q3_logical' key with 'response', 'word_count', and 'transcript_segments'",
+        "JSON has 'metadata' key with 'packaged_at' timestamp",
+        "All word_count values are positive integers"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Package applicant data when oral transcript is missing.",
+      "expected_output": "Script handles gracefully, creates partial submission with warning.",
+      "files": [
+        "evals/files/sample_applicant/written.txt",
+        "evals/files/sample_applicant/meta.json",
+        "evals/files/sample_applicant/logical_transcript.json"
+      ],
+      "assertions": [
+        "Exit code is 0",
+        "submission.json is created",
+        "q2_oral section indicates missing data or is null",
+        "stderr contains warning about missing oral transcript",
+        "q1_written and q3_logical are fully populated"
+      ]
+    }
+  ]
+}

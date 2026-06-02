@@ -1,0 +1,48 @@
+{
+  "skill_name": "evaluation-summarization",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Generate a markdown evaluation report from the assessment data in data/assessor/.",
+      "expected_output": "A comprehensive markdown report is generated with per-applicant summaries and aggregate statistics.",
+      "files": [
+        "evals/files/assessor/applicant1/evaluation.json",
+        "evals/files/assessor/applicant2/evaluation.json",
+        "evals/files/assessor/applicant3/evaluation.json"
+      ],
+      "assertions": [
+        "Exit code is 0",
+        "evaluation_report.md exists in the output directory",
+        "Report contains all 3 applicant IDs",
+        "Report includes aggregate statistics section",
+        "Per-applicant summary.md files exist for each applicant"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Generate an Excel summary from assessment data.",
+      "expected_output": "An Excel file is created with scores, statistics, and proper formatting.",
+      "files": [
+        "evals/files/assessor/applicant1/evaluation.json",
+        "evals/files/assessor/applicant2/evaluation.json"
+      ],
+      "assertions": [
+        "Exit code is 0",
+        "evaluation_summary.xlsx exists in the output directory",
+        "Excel file has at least one sheet with data rows",
+        "All applicant IDs appear in the spreadsheet"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Verify data coverage when one applicant is missing an evaluation.",
+      "expected_output": "Verification detects the missing evaluation and reports it.",
+      "assertions": [
+        "Exit code is 1",
+        "verification_report.txt exists",
+        "Report lists the missing applicant ID",
+        "stdout JSON shows failures > 0"
+      ]
+    }
+  ]
+}
