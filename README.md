@@ -31,7 +31,9 @@ The system is structured as a **team of 4 GitHub Copilot agents** with packaged 
 |-------|------|-------|
 | **BBA-Orchestrator** | Coordinator — breaks down requests, delegates, validates handoffs | `agent`, `read`, `search` |
 | **BBA-Preparer** | Downloads, transcribes, packages applicant data | `execute`, `read`, `search` |
-| **BBA-Assessor** | Evaluates applicants against rubrics (prompt-only, IS the assessor) | `read`, `edit` |
+| **BBA-Assessor-Q1** | Evaluates written communication against rubric (prompt-only) | `read`, `edit` |
+| **BBA-Assessor-Q2** | Evaluates oral communication against rubric (prompt-only) | `read`, `edit` |
+| **BBA-Assessor-Q3** | Evaluates logical thinking against rubric (prompt-only) | `read`, `edit` |
 | **BBA-Analyst** | Generates reports, Excel exports, verifies data coverage | `execute`, `read`, `search` |
 
 ### Data Flow
@@ -106,7 +108,9 @@ uv run .github/skills/evaluation-summarization/scripts/verify_coverage.py --prep
 │   ├── agents/                    # Copilot agent profiles
 │   │   ├── bba-orchestrator.agent.md
 │   │   ├── bba-preparer.agent.md
-│   │   ├── bba-assessor.agent.md
+│   │   ├── bba-assessor-q1.agent.md
+│   │   ├── bba-assessor-q2.agent.md
+│   │   ├── bba-assessor-q3.agent.md
 │   │   └── bba-analyst.agent.md
 │   └── skills/                    # Packaged skills (PEP 723 + uv run)
 │       ├── submission-download/
